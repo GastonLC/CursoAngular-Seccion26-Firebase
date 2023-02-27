@@ -17,7 +17,7 @@ pipeline {
       steps {
         git branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git'
        
-          sh 'npm install'
+          sh 'npm install --legacy-peer-deps'
         
       }
     }
