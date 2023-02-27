@@ -38,7 +38,7 @@ pipeline {
    //     sh "/usr/local/bin/docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
          
    //   }
-    }
+   // }
   }
 }
 
