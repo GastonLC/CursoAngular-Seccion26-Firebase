@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  tools {nodejs "NodeJS"}
+  tools {nodejs "NodeJS16"}
 //  environment {
 //    PATH = "${env.PATH}:/Users/niiqow/.nvm/versions/node/v18.12.1/bin"
 //  }
