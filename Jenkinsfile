@@ -27,7 +27,7 @@ pipeline {
       steps {
         //sh 'export PATH=$PATH:/Users/niiqow/.nvm/versions/node/v18.12.1/bin'
         sh 'npm run build'
-        //sh "/usr/local/bin/docker build -t ${image_name}:${tag_image} --file dockerfile ."
+        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
       
       }
     }
