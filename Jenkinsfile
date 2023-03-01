@@ -23,7 +23,7 @@ pipeline {
 
     stage('pushDocker') {
       steps {
-        sh 'docker push ${image_name}:${tag_image}'
+        sh 'gastonlc/angularapp:lts'
       }
     }
 
