@@ -23,7 +23,7 @@ pipeline {
 
     stage('pushDocker') {
       steps {
-        sh 'docker push gastonlc/angularapp:lts'
+        sh 'docker push pagina_img:lts'
       }
     }
 
