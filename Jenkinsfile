@@ -17,7 +17,7 @@ pipeline {
 
     stage('pushDocker') {
       steps {
-        sh 'docker push gastonlc/angularapp:angularapp'
+        sh 'docker push gastonlc/angularapp:lts'
       }
     }
 
