@@ -15,22 +15,24 @@ pipeline {
       }
     }
 
-    stage('pushDocker') {
+    stage('Login') {
       steps {
-        sh 'docker push gastonlc/angularapp:lts'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
       }
     }
 
-    stage('deploy') {
+    stage('pushDocker') {
       steps {
-        sh "docker rm -f ${container_name}" // Elimina el contenedor si existe
-        sh "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
+        sh 'docker push ${image_name}:${tag_image}'
       }
     }
 
   }
   tools {
     nodejs 'NodeJS16'
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('DockerHubLoginGLC')
   }
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
