@@ -33,7 +33,7 @@ pipeline {
         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
           sh 'curl -sL https://aka.ms/InstallAzureCLIDeb'
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-          sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -n sociuswebapptest010 --multicontainer-config-file gastonlc/angularapp:${tag_image}'
+          sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerProd -n sociuswebapptest010 -i gastonlc/angularapp:${tag_image}"
         }
 
       }
