@@ -37,7 +37,8 @@ pipeline {
     stage('Deploy to Azure App Service') {
       steps {
         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
-          sh 'curl -sL https://aka.ms/InstallAzureCLIDeb'
+          sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+          sh 'export PATH=$PATH:/usr/local/bin'
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerProd -n sociuswebapptest010 -i gastonlc/angularapp:${tag_image}"
         }
