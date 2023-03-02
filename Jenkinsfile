@@ -28,6 +28,17 @@ pipeline {
       }
     }
 
+    stage('Deploy to Azure App Service') {
+      steps {
+        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
+          sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
+          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
+          sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -n sociuswebapptest010 --multicontainer-config-file gastonlc/angularapp:${tag_image}'
+        }
+
+      }
+    }
+
   }
   tools {
     nodejs 'NodeJS16'
