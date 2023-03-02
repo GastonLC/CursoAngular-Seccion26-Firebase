@@ -1,6 +1,12 @@
 pipeline {
   agent any
   stages {
+    stage('test-az') {
+      steps {
+        sh 'az version'
+      }
+    }
+
     stage('install') {
       steps {
         git(branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
