@@ -8,16 +8,16 @@ pipeline {
       }
     }
 
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
+
     stage('build') {
       steps {
         sh 'npm run build'
         sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
-      }
-    }
-
-    stage('Login') {
-      steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
       }
     }
 
