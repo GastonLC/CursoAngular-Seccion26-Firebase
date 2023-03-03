@@ -35,6 +35,7 @@ pipeline {
           sh 'export PATH=$PATH:/usr/local/bin'
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev -n sociuswebapptest010 -i gastonlc/angularapp:${tag_image}"
+          sh 'az webapp deployment container config --enable-cd true --name sociuswebapptest010 --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-DEV'
         }
 
       }
