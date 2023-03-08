@@ -26,6 +26,7 @@ pipeline {
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
         sh "docker tag ${image_name}:${tag_image} gastonlc/angularapp:${tag_image}"
         sh "docker push gastonlc/angularapp:${tag_image}"
+        sh "docker rmi ${image_name}:${tag_image}"
       }
     }
 
