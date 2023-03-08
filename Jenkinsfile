@@ -30,13 +30,9 @@ pipeline {
       }
     }
 
-    stage('Deploy to Azure App Service') {
+    stage('Trigger Deploy Job') {
       steps {
-        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
-          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-          sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev -n sociuswebapptest010 -i gastonlc/angularapp:${tag_image}"
-        }
-
+        build 'App-Angular-Deploy'
       }
     }
 
