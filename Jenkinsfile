@@ -3,8 +3,14 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        git(branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
+        git(branch: 'develop', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
         sh 'npm install --legacy-peer-deps'
+      }
+    }
+
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
       }
     }
 
@@ -15,16 +21,19 @@ pipeline {
       }
     }
 
-    stage('Login') {
+    stage('pushDocker') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
+        sh "docker tag ${image_name}:${tag_image} gastonlc/angularapp:${tag_image}"
+        sh "docker push gastonlc/angularapp:${tag_image}"
+        sh "docker rmi ${image_name}:${tag_image}"
       }
     }
 
-    stage('pushDocker') {
+    stage('Trigger Deploy Job') {
       steps {
-        sh "docker tag ${image_name}:${tag_image} gastonlc/angularapp:${tag_image}"
-        sh "docker push gastonlc/angularapp:${tag_image}"
+        build(job: 'App-Angular-Deploy', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
+                                                                                              string(name: 'tag_image', value:"${params.tag_image}")])
       }
     }
 
@@ -45,7 +54,7 @@ pipeline {
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pagina_img', description: 'Nombre de la imagene docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
+    string(name: 'tag_image', defaultValue: 'lts2', description: 'Tag de la imagen de la página.')
     string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
