@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs';
 import { Game } from '../../interfaces/interfaces';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-inicio',
@@ -11,7 +12,7 @@ import { Game } from '../../interfaces/interfaces';
 export class InicioComponent implements OnInit {
 
   juegos: any[] = [];
-
+  year: number = environment.MY_VARIABLE;
   constructor( private db : AngularFirestore) { }
 
   ngOnInit(): void {
