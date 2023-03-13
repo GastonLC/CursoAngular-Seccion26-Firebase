@@ -12,7 +12,9 @@ import { environment } from 'src/environments/environment.prod';
 export class InicioComponent implements OnInit {
 
   juegos: any[] = [];
-  year: string = process.env['MY_VARIABLE']!;
+  year: number = environment.MY_VARIABLE;
+  // year: string = process.env['MY_VARIABLE']!;
+  
   constructor( private db : AngularFirestore) { }
 
   ngOnInit(): void {
