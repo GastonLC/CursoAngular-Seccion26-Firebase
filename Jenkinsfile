@@ -19,12 +19,14 @@ pipeline {
               withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
                 sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'                
                 script {
-                    def MY_VARIABLE2 = sh(
+                     MY_VARIABLE2 = sh(
                         returnStdout: true, 
                         script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
-                    ).trim()
-                MY_VARIABLE = MY_VARIABLE2                
-                sh "sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts"
+                    ).trim()                  
+                    MY_VARIABLE = MY_VARIABLE2
+                   
+               sh "sed -i \"s/MY_VARIABLE: .*/MY_VARIABLE: '${MY_VARIABLE}'/g\" src/environments/environment.prod.ts"
+
                 }
                 
               }
