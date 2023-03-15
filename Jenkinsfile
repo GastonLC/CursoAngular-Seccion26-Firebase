@@ -19,7 +19,7 @@ pipeline {
               withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
                 sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'                
                 script {
-                    MY_VARIABLE2 = sh(
+                    def MY_VARIABLE2 = sh(
                         returnStdout: true, 
                         script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
                     ).trim()                  
