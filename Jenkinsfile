@@ -25,8 +25,8 @@ pipeline {
                     ).trim()                  
                 }
                 
-                sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
               }
+                sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
             }
         }
 
