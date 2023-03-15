@@ -28,7 +28,7 @@ pipeline {
                 
               }
             }
-        }
+    }
 
     // stage('Modifica variable de entorno') {
     //   steps {
@@ -67,7 +67,7 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('DockerHubLoginGLC')
     AZURE_GROUP = 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV'
     AZURE_NAME = 'sociuswebapptest010'
-    MY_VARIABLE = 'DESDEJENKINS'
+    //MY_VARIABLE = 'DESDEJENKINS'
   }
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
