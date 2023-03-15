@@ -14,6 +14,17 @@ pipeline {
       }
     }
 
+    stage('Recibir variable de entorno') {
+            steps {
+                script {
+                    MY_VARIABLE = sh(
+                        returnStdout: true, 
+                        script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
+                    ).trim()
+                }
+            }
+        }
+
     stage('Modifica variable de entorno') {
       steps {
         sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
@@ -49,7 +60,9 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('DockerHubLoginGLC')
-    MY_VARIABLE = '2024'
+    AZURE_GROUP = 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV'
+    AZURE_NAME = 'sociuswebapptest010'
+    MY_VARIABLE = ''
   }
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
