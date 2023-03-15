@@ -9,5 +9,5 @@ export const environment = {
   },
   production: true,
   url: 'https://us-central1-firestore-grafica-7d33e.cloudfunctions.net',
-  MY_VARIABLE: 2023
+  MY_VARIABLE: '2023'
 };
