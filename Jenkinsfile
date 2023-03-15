@@ -14,6 +14,12 @@ pipeline {
       }
     }
 
+    stage('Modifica variable de entorno') {
+      steps {
+        sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
+      }
+    }
+
     stage('build') {
       steps {
         sh 'npm run build'
@@ -33,7 +39,7 @@ pipeline {
     stage('Trigger Deploy Job') {
       steps {
         build(job: 'App-Angular-Deploy', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
-                                                                                              string(name: 'tag_image', value:"${params.tag_image}")])
+                                                                                                              string(name: 'tag_image', value:"${params.tag_image}")])
       }
     }
 
@@ -43,6 +49,7 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('DockerHubLoginGLC')
+    MY_VARIABLE = '2024'
   }
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
