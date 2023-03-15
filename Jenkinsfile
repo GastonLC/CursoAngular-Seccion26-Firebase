@@ -29,11 +29,11 @@ pipeline {
             }
         }
 
-    stage('Modifica variable de entorno') {
-      steps {
-       // sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
-      }
-    }
+    // stage('Modifica variable de entorno') {
+    //   steps {
+    //     sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
+    //   }
+    // }
 
     stage('build') {
       steps {
