@@ -23,7 +23,7 @@ pipeline {
                         returnStdout: true, 
                         script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
                     ).trim()                  
-                sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
+                sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \MY_VARIABLE/g" src/environments/environment.prod.ts'
                 }
                 
               }
