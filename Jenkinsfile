@@ -16,6 +16,8 @@ pipeline {
 
     stage('Recibir variable de entorno') {
             steps {
+              withCredentials([azureServicePrincipal('Azure-Service-Principal')]) {
+      sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'}
                 script {
                     MY_VARIABLE = sh(
                         returnStdout: true, 
