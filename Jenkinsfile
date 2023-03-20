@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        git(branch: 'develop', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
+        git(branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
         sh 'npm install --legacy-peer-deps'
       }
     }
@@ -39,8 +39,8 @@ pipeline {
 
     stage('DeployAzure') {
       steps {
-        sh '"az login --service-principal -u 1c6914e6-5a2b-4c76-b99a-68614314529f -p zd.8Q~Q_OV6KR-BOcHF~SGTlmmpFW58fvcyKXa2Y --tenant       9297550c-fa07-4acd-ade0-49b8c437c2df"'
-        sh "az webapp deployment source config-zip --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-DEV --name sociuswebapptest010 --src gastonlc/angularapp:${tag_image}"
+        sh '"az login --service-principal -u 8cd68ef1-d350-492b-aa4a-cb75fae85425 -p qW.8Q~pi4fpuypo4qOPaX2Rcc8vf1~3EU6B31doS --tenant 9297550c-fa07-4acd-ade0-49b8c437c2df"'
+        sh "az webapp deployment source config-zip --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --name sociuswebapptest004 --src gastonlc/angularapp:${tag_image}"
       }
     }
 
