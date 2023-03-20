@@ -8,5 +8,6 @@ export const environment = {
     messagingSenderId: '365226130597',
   },
   production: true,
-  url: 'https://us-central1-firestore-grafica-7d33e.cloudfunctions.net'
+  url: 'https://us-central1-firestore-grafica-7d33e.cloudfunctions.net',
+  MY_VARIABLE: '2023'
 };
