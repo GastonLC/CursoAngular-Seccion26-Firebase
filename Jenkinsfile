@@ -33,12 +33,6 @@ pipeline {
             }
     }
 
-    // stage('Modifica variable de entorno') {
-    //   steps {
-    //     sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
-    //   }
-    // }
-
     stage('build') {
       steps {
         sh 'npm run build'
@@ -61,14 +55,7 @@ pipeline {
         build(job: 'App-Angular-Deploy-Prod', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
                                                                                               string(name: 'tag_image', value:"${params.tag_image}")])
       }
-    }
-
-    stage('DeployAzure') {
-      steps {
-        sh '"az login --service-principal -u 8cd68ef1-d350-492b-aa4a-cb75fae85425 -p qW.8Q~pi4fpuypo4qOPaX2Rcc8vf1~3EU6B31doS --tenant 9297550c-fa07-4acd-ade0-49b8c437c2df"'
-        sh "az webapp deployment source config-zip --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --name sociuswebapptest004p --src gastonlc/angularapp:${tag_image}"
-      }
-    }
+    }  
 
   }
   tools {
@@ -81,9 +68,7 @@ pipeline {
     MY_VARIABLE = ''
   }
   parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pagina_img', description: 'Nombre de la imagene docker.')
     string(name: 'tag_image', defaultValue: 'lts2', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
