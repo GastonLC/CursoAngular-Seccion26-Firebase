@@ -66,7 +66,7 @@ pipeline {
     stage('DeployAzure') {
       steps {
         sh '"az login --service-principal -u 8cd68ef1-d350-492b-aa4a-cb75fae85425 -p qW.8Q~pi4fpuypo4qOPaX2Rcc8vf1~3EU6B31doS --tenant 9297550c-fa07-4acd-ade0-49b8c437c2df"'
-        sh "az webapp deployment source config-zip --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --name sociuswebapptest004 --src gastonlc/angularapp:${tag_image}"
+        sh "az webapp deployment source config-zip --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --name sociuswebapptest004p --src gastonlc/angularapp:${tag_image}"
       }
     }
 
@@ -76,8 +76,8 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('DockerHubLoginGLC')
-    AZURE_GROUP = 'SOCIUSRGLAB-RG-MODELODEVOPS-DEV'
-    AZURE_NAME = 'sociuswebapptest010'
+    AZURE_GROUP = 'SOCIUSRGLAB-RG-MODELODEVOPS-PROD'
+    AZURE_NAME = 'sociuswebapptest004p'
     MY_VARIABLE = ''
   }
   parameters {
