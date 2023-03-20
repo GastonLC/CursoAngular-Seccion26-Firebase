@@ -6,13 +6,7 @@ pipeline {
         git(branch: 'develop', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
         sh 'npm install --legacy-peer-deps'
       }
-    }
-
-    stage('Login') {
-      steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
-      }
-    }
+    }   
 
     stage('Recibir variable de entorno') {
             steps {
@@ -33,12 +27,6 @@ pipeline {
             }
     }
 
-    // stage('Modifica variable de entorno') {
-    //   steps {
-    //     sh 'sed -i "s/MY_VARIABLE: .*/MY_VARIABLE: \'${MY_VARIABLE}\'/g" src/environments/environment.prod.ts'
-    //   }
-    // }
-
     stage('build') {
       steps {
         sh 'npm run build'
@@ -48,7 +36,7 @@ pipeline {
 
     stage('pushDocker') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
+        sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW'
         sh "docker tag ${image_name}:${tag_image} gastonlc/angularapp:${tag_image}"
         sh "docker push gastonlc/angularapp:${tag_image}"
         sh "docker rmi ${image_name}:${tag_image}"
@@ -74,9 +62,7 @@ pipeline {
     MY_VARIABLE = ''
   }
   parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pagina_img', description: 'Nombre de la imagene docker.')
     string(name: 'tag_image', defaultValue: 'lts2', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
