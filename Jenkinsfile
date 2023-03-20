@@ -58,7 +58,7 @@ pipeline {
 
     stage('Trigger Deploy Job') {
       steps {
-        build(job: 'App-Angular-Deploy', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
+        build(job: 'App-Angular-Deploy-Prod', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
                                                                                               string(name: 'tag_image', value:"${params.tag_image}")])
       }
     }
