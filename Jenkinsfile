@@ -8,12 +8,6 @@ pipeline {
       }
     }
 
-    stage('Login') {
-      steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
-      }
-    }
-
     stage('Recibir variable de entorno') {
             steps {
               withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
@@ -42,7 +36,7 @@ pipeline {
 
     stage('pushDocker') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_Y0sjy4-PK8KTlW-chb53QTdeI9Q'
+        sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR --password $DOCKERHUB_CREDENTIALS_PSW'
         sh "docker tag ${image_name}:${tag_image} gastonlc/angularapp:${tag_image}"
         sh "docker push gastonlc/angularapp:${tag_image}"
         sh "docker rmi ${image_name}:${tag_image}"
