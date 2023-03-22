@@ -14,14 +14,14 @@ pipeline {
               if (env.BRANCH_NAME == 'develop') {                        
                   AZURE_GROUP = "${env.GOTY_RG_DEV}"
                   AZURE_NAME = "${env.GOTY_NAME_DEV}"
-                  azureServicePrincipal = 'Azure-Service-Principal'
-                  DEPLOY_JOB = 'App-Angular-Deploy'
+                  azureServicePrincipalValue = 'Azure-Service-Principal'
+                  DEPLOY_JOB = 'Goty-Deploy/develop'
 
               } else if (env.BRANCH_NAME == 'main') {
                   AZURE_GROUP = "${env.GOTY_RG_PROD}"
                   AZURE_NAME = "${env.GOTY_NAME_PROD}"
-                  azureServicePrincipalValue = "Azure-Service-Principal-Prod"
-                  DEPLOY_JOB = 'App-Angular-Deploy-Prod'
+                  azureServicePrincipalValue = 'Azure-Service-Principal-Prod'
+                  DEPLOY_JOB = 'Goty-Deploy/main'
               } 
           }
       }
