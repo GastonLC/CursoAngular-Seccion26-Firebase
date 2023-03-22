@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        git(branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
+        //git(branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
         sh 'npm install --legacy-peer-deps'
       }
     }
@@ -15,13 +15,15 @@ pipeline {
                   AZURE_GROUP = "${env.GOTY_RG_DEV}"
                   AZURE_NAME = "${env.GOTY_NAME_DEV}"
                   azureServicePrincipal = 'Azure-Service-Principal'
+                  DEPLOY_JOB = 'App-Angular-Deploy'
+
               } else if (env.BRANCH_NAME == 'main') {
                   AZURE_GROUP = "${env.GOTY_RG_PROD}"
                   AZURE_NAME = "${env.GOTY_NAME_PROD}"
                   azureServicePrincipalValue = "Azure-Service-Principal-Prod"
+                  DEPLOY_JOB = 'App-Angular-Deploy-Prod'
               } 
           }
-          sh "echo ${AZURE_GROUP} ${AZURE_NAME}"
       }
     }
 
@@ -63,7 +65,7 @@ pipeline {
 
     stage('Trigger Deploy Job') {
       steps {
-        build(job: 'App-Angular-Deploy-Prod', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
+        build(job: "${DEPLOY_JOB}", parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
                                                                                               string(name: 'tag_image', value:"${params.tag_image}")])
       }
     }  
@@ -77,6 +79,7 @@ pipeline {
     AZURE_GROUP = ''
     AZURE_NAME = ''
     azureServicePrincipalValue= ''
+    DEPLOY_JOB = ''
     MY_VARIABLE = ''
   }
   parameters {
