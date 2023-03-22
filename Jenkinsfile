@@ -15,13 +15,13 @@ pipeline {
                   AZURE_GROUP = "${env.GOTY_RG_DEV}"
                   AZURE_NAME = "${env.GOTY_NAME_DEV}"
                   azureServicePrincipalValue = 'Azure-Service-Principal'
-                  //DEPLOY_JOB = 'App-Angular-Deploy'
+                  DEPLOY_JOB = 'Goty-Deploy/develop'
 
               } else if (env.BRANCH_NAME == 'main') {
                   AZURE_GROUP = "${env.GOTY_RG_PROD}"
                   AZURE_NAME = "${env.GOTY_NAME_PROD}"
                   azureServicePrincipalValue = 'Azure-Service-Principal-Prod'
-                  //DEPLOY_JOB = 'App-Angular-Deploy-Prod'
+                  DEPLOY_JOB = 'Goty-Deploy/main'
               } 
           }
       }
@@ -65,7 +65,7 @@ pipeline {
 
     stage('Trigger Deploy Job') {
       steps {
-        build(job: 'Goty-Deploy/develop', parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
+        build(job: "${DEPLOY_JOB}", parameters: [string(name: 'image_name', value: "gastonlc/angularapp"),
                                                                                               string(name: 'tag_image', value:"${params.tag_image}")])
       }
     }  
