@@ -42,7 +42,7 @@ pipeline {
     
     stage('Azure App Service deploy') {
       steps {
-         withCredentials(bindings: [azureServicePrincipal("${azureServicePrincipalValue}")]) {
+         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
            sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'        
           // sh "az webapp delete -g ${AZURE_GROUP} -n ${AZURE_NAME}"
            sh "az webapp create -g ${AZURE_GROUP} -p ${AZURE_PLAN} -n ${AZURE_NAME} -i ${params.image_name}:${params.tag_image}"
