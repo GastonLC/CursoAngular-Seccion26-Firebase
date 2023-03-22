@@ -14,7 +14,7 @@ pipeline {
               if (env.BRANCH_NAME == 'develop') {                        
                   AZURE_GROUP = "${env.GOTY_RG_DEV}"
                   AZURE_NAME = "${env.GOTY_NAME_DEV}"
-                  azureServicePrincipal = 'Azure-Service-Principal'
+                  azureServicePrincipalValue = 'Azure-Service-Principal'
                   DEPLOY_JOB = 'App-Angular-Deploy'
 
               } else if (env.BRANCH_NAME == 'main') {
