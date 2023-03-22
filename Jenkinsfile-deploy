@@ -25,7 +25,7 @@ pipeline {
                   AZURE_NAME = "${env.GOTY_NAME_DEV}"
                   AZURE_PLAN = "${env.GOTY_PLAN_DEV}"
                   azureServicePrincipalValue = 'Azure-Service-Principal'
-                  MY_VARIABLE_VALUE = '2023 - Dev'
+                  MY_VARIABLE_VALUE = '2023-Dev'
 
 
               } else if (env.BRANCH_NAME == 'main') {
@@ -33,7 +33,7 @@ pipeline {
                   AZURE_NAME = "${env.GOTY_NAME_PROD}"
                   AZURE_PLAN = "${env.GOTY_PLAN_PROD}"
                   azureServicePrincipalValue = 'Azure-Service-Principal-Prod'
-                  MY_VARIABLE_VALUE = '2023 - Prod'
+                  MY_VARIABLE_VALUE = '2023-Prod'
 
               } 
           }
