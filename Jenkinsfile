@@ -18,7 +18,7 @@ pipeline {
               } else if (env.BRANCH_NAME == 'main') {
                   env.AZURE_GROUP = "${env.GOTY_RG_PROD}"
                   env.AZURE_NAME = "${env.GOTY_NAME_PROD}"
-                  env.azureServicePrincipal = 'Azure-Service-Principal-Prod'
+                  env.azureServicePrincipal = "Azure-Service-Principal-Prod"
               } 
           }
       }
