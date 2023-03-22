@@ -8,23 +8,39 @@ pipeline {
       }
     }
 
-    stage('Recibir variable de entorno') {
-            steps {
-              withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
-                sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'                
-                script {
-                     MY_VARIABLE2 = sh(
-                        returnStdout: true, 
-                        script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
-                    ).trim()                  
-                    MY_VARIABLE = MY_VARIABLE2
-                   
-               sh "sed -i \"s/MY_VARIABLE: .*/MY_VARIABLE: '${MY_VARIABLE}'/g\" src/environments/environment.prod.ts"
+    stage('Chequeo de la rama') {
+      steps {
+          script {
+              if (env.BRANCH_NAME == 'develop') {                        
+                  env.AZURE_GROUP = "${env.GOTY_RG_DEV}"
+                  env.AZURE_NAME = "${env.GOTY_NAME_DEV}"
+                  env.azureServicePrincipal = 'Azure-Service-Principal'
+              } else if (env.BRANCH_NAME == 'main') {
+                  env.AZURE_GROUP = "${env.GOTY_RG_PROD}"
+                  env.AZURE_NAME = "${env.GOTY_NAME_PROD}"
+                  env.azureServicePrincipal = 'Azure-Service-Principal-Prod'
+              } 
+          }
+      }
+    }
 
-                }
-                
-              }
-            }
+    stage('Recibir variable de entorno') {
+      steps {
+        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
+          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'                
+          script {
+                MY_VARIABLE2 = sh(
+                  returnStdout: true, 
+                  script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
+              ).trim()                  
+              MY_VARIABLE = MY_VARIABLE2
+              
+          sh "sed -i \"s/MY_VARIABLE: .*/MY_VARIABLE: '${MY_VARIABLE}'/g\" src/environments/environment.prod.ts"
+
+          }
+          
+        }
+      }
     }
 
     stage('build') {
@@ -57,8 +73,9 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('DockerHubLoginGLC')
-    AZURE_GROUP = 'SOCIUSRGLAB-RG-MODELODEVOPS-PROD'
-    AZURE_NAME = 'sociuswebapptest004p'
+    AZURE_GROUP = ''
+    AZURE_NAME = ''
+    azureServicePrincipal= ''
     MY_VARIABLE = ''
   }
   parameters {
