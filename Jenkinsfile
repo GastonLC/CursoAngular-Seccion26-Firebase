@@ -31,7 +31,7 @@ pipeline {
           script {
                 MY_VARIABLE2 = sh(
                   returnStdout: true, 
-                  script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
+                  script: "az webapp config appsettings list --name ${env.AZURE_NAME} --resource-group ${env.AZURE_GROUP} --query \"[?name=='MY_VARIABLE'].value\" --output tsv"
               ).trim()                  
               MY_VARIABLE = MY_VARIABLE2
               
