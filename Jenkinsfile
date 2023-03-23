@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        //git(branch: 'main', url: 'https://github.com/GastonLC/CursoAngular-Seccion26-Firebase.git')
         sh 'npm install --legacy-peer-deps'
       }
     }
@@ -22,22 +21,7 @@ pipeline {
                   azureServicePrincipalValue =  "${env[azureServicePrincipalValue1]}"
                   
                   DEPLOY_JOB = "Goty-Deploy/$BRANCH_NAME"
-              
-              // if (env.BRANCH_NAME == 'develop') {                        
-              //     AZURE_GROUP = "${env.GOTY_RG_develop}"
-              //     AZURE_NAME = "${env.GOTY_NAME_develop}"
-              //     azureServicePrincipalValue = "${env.ASP_VALUE_develop}"
-              //     DEPLOY_JOB = 'Goty-Deploy/develop'
-
-              // } else if (env.BRANCH_NAME == 'main') {
-              //     AZURE_GROUP = "${env.GOTY_RG_main}"
-              //     AZURE_NAME = "${env.GOTY_NAME_main}"
-              //     azureServicePrincipalValue = "${env.ASP_VALUE_main}"
-              //     DEPLOY_JOB = 'Goty-Deploy/main'
-              // } 
-              
           }
-
       }
     }
 
