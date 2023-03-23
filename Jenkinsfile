@@ -11,10 +11,17 @@ pipeline {
     stage('Chequeo de la rama') {
       steps {
           script {
-                  AZURE_GROUP = "env.GOTY_RG_${env.BRANCH_NAME}"
-                  AZURE_NAME = "env.GOTY_NAME_${env.BRANCH_NAME}"
-                  azureServicePrincipalValue = "env.ASP_VALUE_${env.BRANCH_NAME}"
-                  DEPLOY_JOB = "Goty-Deploy/${env.BRANCH_NAME}"
+                  AZURE_GROUP1 = "GOTY_RG_$BRANCH_NAME"
+                  AZURE_GROUP = "${env[AZURE_GROUP1]}"
+                  sh "echo ${AZURE_GROUP}"
+                  
+                  AZURE_NAME1 = "GOTY_NAME_$BRANCH_NAME"
+                  AZURE_NAME = "${env[AZURE_NAME1]}"
+                  
+                  azureServicePrincipalValue1 = "ASP_VALUE_$BRANCH_NAME"
+                  azureServicePrincipalValue =  "${env[azureServicePrincipalValue1]}"
+                  
+                  DEPLOY_JOB = "Goty-Deploy/$BRANCH_NAME}"
               
               // if (env.BRANCH_NAME == 'develop') {                        
               //     AZURE_GROUP = "${env.GOTY_RG_develop}"
@@ -28,8 +35,7 @@ pipeline {
               //     azureServicePrincipalValue = "${env.ASP_VALUE_main}"
               //     DEPLOY_JOB = 'Goty-Deploy/main'
               // } 
-              sh "echo AZURE_GROUP = env.GOTY_RG_${env.BRANCH_NAME}"
-              sh "echo ${AZURE_GROUP}"
+              
           }
 
       }
