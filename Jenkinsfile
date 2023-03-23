@@ -11,19 +11,25 @@ pipeline {
     stage('Chequeo de la rama') {
       steps {
           script {
-              if (env.BRANCH_NAME == 'develop') {                        
-                  AZURE_GROUP = "${env.GOTY_RG_develop}"
-                  AZURE_NAME = "${env.GOTY_NAME_develop}"
-                  azureServicePrincipalValue = "${env.ASP_VALUE_develop}"
-                  DEPLOY_JOB = 'Goty-Deploy/develop'
+                  AZURE_GROUP = "env.GOTY_RG_${env.BRANCH_NAME}"
+                  AZURE_NAME = "env.GOTY_NAME_${env.BRANCH_NAME}"
+                  azureServicePrincipalValue = "env.ASP_VALUE_${env.BRANCH_NAME}"
+                  DEPLOY_JOB = "Goty-Deploy/${env.BRANCH_NAME}"
+              
+              // if (env.BRANCH_NAME == 'develop') {                        
+              //     AZURE_GROUP = "${env.GOTY_RG_develop}"
+              //     AZURE_NAME = "${env.GOTY_NAME_develop}"
+              //     azureServicePrincipalValue = "${env.ASP_VALUE_develop}"
+              //     DEPLOY_JOB = 'Goty-Deploy/develop'
 
-              } else if (env.BRANCH_NAME == 'main') {
-                  AZURE_GROUP = "${env.GOTY_RG_main}"
-                  AZURE_NAME = "${env.GOTY_NAME_main}"
-                  azureServicePrincipalValue = "${env.ASP_VALUE_main}"
-                  DEPLOY_JOB = 'Goty-Deploy/main'
-              } 
-              sh "echo AZURE_GROUP = \${env.GOTY_RG_"${env.BRANCH_NAME}"}"
+              // } else if (env.BRANCH_NAME == 'main') {
+              //     AZURE_GROUP = "${env.GOTY_RG_main}"
+              //     AZURE_NAME = "${env.GOTY_NAME_main}"
+              //     azureServicePrincipalValue = "${env.ASP_VALUE_main}"
+              //     DEPLOY_JOB = 'Goty-Deploy/main'
+              // } 
+              sh "echo AZURE_GROUP = env.GOTY_RG_${env.BRANCH_NAME}"
+              sh "echo ${AZURE_GROUP}"
           }
 
       }
