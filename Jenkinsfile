@@ -21,7 +21,7 @@ pipeline {
                   azureServicePrincipalValue1 = "ASP_VALUE_$BRANCH_NAME"
                   azureServicePrincipalValue =  "${env[azureServicePrincipalValue1]}"
                   
-                  DEPLOY_JOB = "Goty-Deploy/$BRANCH_NAME}"
+                  DEPLOY_JOB = "Goty-Deploy/$BRANCH_NAME"
               
               // if (env.BRANCH_NAME == 'develop') {                        
               //     AZURE_GROUP = "${env.GOTY_RG_develop}"
