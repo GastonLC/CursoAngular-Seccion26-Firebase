@@ -12,18 +12,20 @@ pipeline {
       steps {
           script {
               if (env.BRANCH_NAME == 'develop') {                        
-                  AZURE_GROUP = "${env.GOTY_RG_DEV}"
-                  AZURE_NAME = "${env.GOTY_NAME_DEV}"
-                  azureServicePrincipalValue = 'Azure-Service-Principal'
+                  AZURE_GROUP = "${env.GOTY_RG_develop}"
+                  AZURE_NAME = "${env.GOTY_NAME_develop}"
+                  azureServicePrincipalValue = "${env.ASP_VALUE_develop}"
                   DEPLOY_JOB = 'Goty-Deploy/develop'
 
               } else if (env.BRANCH_NAME == 'main') {
-                  AZURE_GROUP = "${env.GOTY_RG_PROD}"
-                  AZURE_NAME = "${env.GOTY_NAME_PROD}"
-                  azureServicePrincipalValue = 'Azure-Service-Principal-Prod'
+                  AZURE_GROUP = "${env.GOTY_RG_main}"
+                  AZURE_NAME = "${env.GOTY_NAME_main}"
+                  azureServicePrincipalValue = "${env.ASP_VALUE_main}"
                   DEPLOY_JOB = 'Goty-Deploy/main'
               } 
           }
+
+        sh "echo AZURE_GROUP = \${env.GOTY_RG_${env.BRANCH_NAME}}"
       }
     }
 
