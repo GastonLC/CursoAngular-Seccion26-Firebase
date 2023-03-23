@@ -25,7 +25,7 @@ pipeline {
               } 
           }
 
-        sh "echo AZURE_GROUP = \${env.GOTY_RG_'${env.BRANCH_NAME}'}"
+        sh "echo AZURE_GROUP = ${env.GOTY_RG_${env.BRANCH_NAME}}"
       }
     }
 
