@@ -20,22 +20,20 @@ pipeline {
      stage('Chequeo de la rama') {
       steps {
           script {
-              if (env.BRANCH_NAME == 'develop') {                        
-                  AZURE_GROUP = "${env.GOTY_RG_DEV}"
-                  AZURE_NAME = "${env.GOTY_NAME_DEV}"
-                  AZURE_PLAN = "${env.GOTY_PLAN_DEV}"
-                  azureServicePrincipalValue = 'Azure-Service-Principal'
-                  MY_VARIABLE_VALUE = '2023-Dev'
+              AZURE_GROUP1 = "GOTY_RG_$BRANCH_NAME"
+              AZURE_GROUP = "${env[AZURE_GROUP1]}"
 
+              AZURE_NAME1 = "GOTY_NAME_$BRANCH_NAME"
+              AZURE_NAME = "${env[AZURE_NAME1]}"
 
-              } else if (env.BRANCH_NAME == 'main') {
-                  AZURE_GROUP = "${env.GOTY_RG_PROD}"
-                  AZURE_NAME = "${env.GOTY_NAME_PROD}"
-                  AZURE_PLAN = "${env.GOTY_PLAN_PROD}"
-                  azureServicePrincipalValue = 'Azure-Service-Principal-Prod'
-                  MY_VARIABLE_VALUE = '2023-Prod'
+              AZURE_PLAN1 = "GOTY_PLAN_$BRANCH_NAME"
+              AZURE_PLAN = "${env[AZURE_PLAN1]}"
 
-              } 
+              azureServicePrincipalValue1 = "ASP_VALUE_$BRANCH_NAME"
+              azureServicePrincipalValue =  "${env[azureServicePrincipalValue1]}"
+
+              MY_VARIABLE_VALUE = "2023-${env.BRANCH_NAME}"
+             
           }
       }
     }
