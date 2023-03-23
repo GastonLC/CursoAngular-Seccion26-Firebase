@@ -23,9 +23,9 @@ pipeline {
                   azureServicePrincipalValue = "${env.ASP_VALUE_main}"
                   DEPLOY_JOB = 'Goty-Deploy/main'
               } 
+              sh "echo AZURE_GROUP = ${env.GOTY_RG_${env.BRANCH_NAME}}"
           }
 
-        sh "echo AZURE_GROUP = ${env.GOTY_RG_${env.BRANCH_NAME}}"
       }
     }
 
