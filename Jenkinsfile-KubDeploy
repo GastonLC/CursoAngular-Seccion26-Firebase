@@ -10,6 +10,7 @@ pipeline {
            sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS --subscription ${AZURE_SUBSCRIPTION_ID}"     
            sh 'kubectl apply -f GOTY-namespace.yaml'
            sh 'kubectl apply -f GOTY-deployment.yaml'
+           sh 'kubectl apply -f GOTY-ingress.yaml'
           }
       }
     }
