@@ -13,7 +13,7 @@ pipeline {
            //sh 'kubectl create secret tls goty-tls-secret --cert=goty-tls-crt --key=goty-tls-key -n mi-goty-namespace'
            //sh 'kubectl apply -f GOTY-deployment.yaml'
            //sh 'kubectl apply -f GOTY-ingress.yaml'
-           sh 'kubectl apply -k kustomization.yaml'
+           sh 'kubectl apply -k kustomize'
           }
       }
     }
