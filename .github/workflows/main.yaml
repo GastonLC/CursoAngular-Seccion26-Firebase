@@ -27,8 +27,8 @@ jobs:
       run: npm install
 
     - name: Construir la aplicación Angular
-      run: npm help
-
+      run: ng build
+##################################################
     - name: Subir imagen a Docker Hub
       uses: docker/build-push-action@v2
       with:
