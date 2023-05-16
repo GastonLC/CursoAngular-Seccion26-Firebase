@@ -1,0 +1,48 @@
+name: Construir, Subir a Docker Hub y Desplegar
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código fuente
+      uses: actions/checkout@v2
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.17.0'
+
+    - name: Instalar dependencias
+      run: npm install
+
+    - name: Construir la aplicación Angular
+      run: npm run build --prod
+
+    - name: Subir imagen a Docker Hub
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags:  gastonlc/angularapp:1.0.0-Actions
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Configurar Kubectl
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBECONFIG }}
+
+    - name: Desplegar en Kubernetes
+      run: |
+        kubectl apply -f deployment.yaml
