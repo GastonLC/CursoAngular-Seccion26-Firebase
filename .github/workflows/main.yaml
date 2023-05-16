@@ -18,7 +18,11 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.17.0'
-
+        
+    - name: Modificar archivo package.json
+      run: |
+        echo '{"dependencies": {"@angular/common": "14.2.12"}}' > package.json
+  
     - name: Instalar dependencias
       run: npm install
 
