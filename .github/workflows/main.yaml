@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.17.0'
-        
+
     - name: Modificar archivo package.json
       run: |
         echo '{"dependencies": {"@angular/common": "14.2.12"}}' > package.json
@@ -27,7 +27,7 @@ jobs:
       run: npm install
 
     - name: Construir la aplicación Angular
-      run: npm run build --prod
+      run: npm run build
 
     - name: Subir imagen a Docker Hub
       uses: docker/build-push-action@v2
