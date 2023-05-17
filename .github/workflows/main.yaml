@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout del código fuente
-      uses: actions/checkout@v2
+      uses: actions/checkout@develop
 
     - name: Configurar Node.js
       uses: actions/setup-node@v1
@@ -24,10 +24,12 @@ jobs:
         echo '{"dependencies": {"@angular/common": "14.2.12"}}' > package.json
   
     - name: Instalar dependencias
-      run: npm install
+      run: |
+        - npm install
+        - npm run-script build --prod
 
-    - name: Construir la aplicación Angular
-      run: npm run
+    # - name: Construir la aplicación Angular
+    #   run: npm run
 
     - name: Subir imagen a Docker Hub
       uses: docker/build-push-action@v2
