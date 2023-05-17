@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout del código fuente
-      uses: actions/checkout@develop
+      uses: actions/checkout@v1
 
     - name: Configurar Node.js
       uses: actions/setup-node@v1
