@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout del código fuente
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Configurar Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v1
       with:
         node-version: '16.17.0'
 
