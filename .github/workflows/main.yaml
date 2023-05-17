@@ -26,7 +26,7 @@ jobs:
     - name: Instalar dependencias
       run: |
         npm install --legacy-peer-deps
-        npm run
+        npm build
 
     # - name: Construir la aplicación Angular
     #   run: npm run
