@@ -26,10 +26,10 @@ jobs:
     - name: Instalar dependencias
       run: |
         npm install --legacy-peer-deps
-        npm build
+        npm install @angular/cli
 
-    # - name: Construir la aplicación Angular
-    #   run: npm run
+    - name: Construir la aplicación Angular
+      run: ng build
 
     - name: Subir imagen a Docker Hub
       uses: docker/build-push-action@v2
