@@ -74,4 +74,4 @@ jobs:
 
     - name: Desplegar en Kubernetes
       run: |
-        kubectl apply -k CursoAngular-Seccion26-Firebase/tree/develop/kustomize --kubeconfig=kubeconfig.yaml
+        kubectl apply -k kustomize --kubeconfig=kubeconfig.yaml
