@@ -49,6 +49,8 @@ jobs:
         context: .
         push: true
         tags:  gastonlc/angularapp:1.0.0-Actions
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_TOKEN }}
 
   deploy:
     needs: build
