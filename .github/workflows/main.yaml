@@ -61,12 +61,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # - name: Configurar Kubectl
+    #   uses: azure/k8s-set-context@v1
+    #   with:
+    #     method: kubeconfig
+    #     kubeconfig: ${{ secrets.KUBECONFIG }}
+
     - name: Configurar Kubectl
-      uses: azure/k8s-set-context@v1
-      with:
-        method: kubeconfig
-        kubeconfig: ${{ secrets.KUBECONFIG }}
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+        kubectl config use-context ModeloDevops-AKS-Reader --kubeconfig=kubeconfig.yaml
 
     - name: Desplegar en Kubernetes
       run: |
-        kubectl apply -f deployment.yaml
+        kubectl apply -k kustomize --kubeconfig=kubeconfig.yaml
