@@ -80,4 +80,4 @@ jobs:
       run: |
         az login --service-principal -u ${{secrets.AZURE_CLIENT_ID}} -p ${{secrets.AZURE_CLIENT_SECRET}} --tenant ${{secrets.AZURE_TENANT_ID}}
         az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS
-        kubectl apply -k kustomize --kubeconfig=$HOME/.kube/config
+        kubectl apply -k CursoAngular-Seccion26-Firebase/kustomize --kubeconfig=$HOME/.kube/config
