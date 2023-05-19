@@ -31,17 +31,10 @@ jobs:
       with:
         node-version: '16.17.0'
 
-    # - name: Modificar archivo package.json
-    #   run: |
-    #     echo '{"dependencies": {"@angular/common": "14.2.12"}}' > package.json
-  
-    - name: Instalar dependencias
+    - name: Instalar dependencias y construir
       run: |
         npm install --legacy-peer-deps
         npm run build
-
-    # - name: Construir la aplicación Angular
-    #   run: ng build
 
     - name: Login Docker Hub
       uses: docker/login-action@v2
@@ -61,12 +54,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - name: Configurar Kubectl
-    #   uses: azure/k8s-set-context@v1
-    #   with:
-    #     method: kubeconfig
-    #     kubeconfig: ${{ secrets.KUBECONFIG }}
-
     - name: Configurar Kubectl
       run: |
         kubectl config set-cluster ModeloDevops-AKS-Reader --server=https://modelodevops-aks-dns-b137e13a.hcp.westeurope.azmk8s.io
