@@ -69,9 +69,14 @@ jobs:
 
     - name: Configurar Kubectl
       run: |
-        echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-        kubectl config use-context ModeloDevops-AKS-Reader --kubeconfig=kubeconfig.yaml
-
-    - name: Desplegar en Kubernetes
+        kubectl config set-cluster ModeloDevops-AKS-Reader --server=https://modelodevops-aks-dns-b137e13a.hcp.westeurope.azmk8s.io
+        kubectl config set-context ModeloDevops-AKS-Reader --cluster=ModeloDevops-AKS-Reader
+        kubectl config set-credentials gaston --token=${{ secrets.KUBECTL_TOKEN }}
+        kubectl config set-context ModeloDevops-AKS-Reader --user=gaston
+        kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
+        kubectl config get-contexts
+          
+    - name: Log y Desplegar en Kubernetes
       run: |
-        kubectl apply -k kustomize --kubeconfig=kubeconfig.yaml
+        az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS
+        kubectl apply -k kustomize --kubeconfig=$HOME/.kube/config
