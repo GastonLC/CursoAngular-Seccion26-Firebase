@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - develop
+    paths:
+      - ".github/workflows/**"
 
 jobs:
   build:
@@ -52,6 +54,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, '.github/workflows') }}
 
     steps:
     - name: Configurar Kubectl
