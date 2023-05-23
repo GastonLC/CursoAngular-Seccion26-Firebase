@@ -64,7 +64,6 @@ jobs:
         kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
         kubectl config get-contexts
         kubectl config current-context
-        kubectl config set-credentials gaston --client-certificate=${{ secrets.KUBECTL_CA }}
         kubectl apply -k ./kustomize
           
     # - name: Log y Desplegar en Kubernetes
