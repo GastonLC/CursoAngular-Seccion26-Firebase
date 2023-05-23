@@ -60,6 +60,7 @@ jobs:
         kubectl config set-context ModeloDevops-AKS-Reader --cluster=ModeloDevops-AKS-Reader
         kubectl config set-credentials gaston --token=${{ secrets.KUBECTL_TOKEN }}
         kubectl config set-context ModeloDevops-AKS-Reader --user=gaston
+        kubectl config use-context ModeloDevOps-AKS-Reader
         kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
         kubectl config get-contexts
           
