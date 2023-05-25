@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: goty-ingress
+  namespace: mi-goty-namespace
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true" #redireccionar todas las solicitudes HTTP a HTTPS
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - gaston.modelodevops.sociuschile.cl
+    secretName: goty-tls-secret # nombre del secreto que contiene los certificados TLS/SSL
+  rules:
+  - host: gaston.modelodevops.sociuschile.cl
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: goty-service
+            port:
+              number: 80

@@ -1,0 +1,14 @@
+resources:
+  - GOTY-namespace.yaml
+  - GOTY-deployment.yaml
+  - GOTY-ingress.yaml
+  - secrets.yaml 
+  
+# secretGenerator:
+#   - name: goty-tls-secret
+#     files:
+#       - goty-tls-key
+#       - goty-tls-crt
+      
+# generators:
+#   - secrets.yaml
