@@ -52,7 +52,7 @@ jobs:
         kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
         kubectl config get-contexts
         kubectl config current-context
-        ls -a
+        ls -l
         kubectl apply -k kustomize
           
     # - name: Log y Desplegar en Kubernetes
