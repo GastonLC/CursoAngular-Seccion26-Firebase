@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: goty-container
-        image: gastonlc/angularapp:1.0.0-dev
+        image: gastonlc/angularapp:1.0.0-Actions
         ports:
         - containerPort: 80
 ---
