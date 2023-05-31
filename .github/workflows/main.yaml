@@ -55,5 +55,5 @@ jobs:
         kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
         kubectl config get-contexts
         kubectl config current-context
-        ls -l
+        kubectl delete secret goty-tls-secret -n mi-goty-namespace
         kubectl apply -k kustomize
