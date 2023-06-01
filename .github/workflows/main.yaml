@@ -14,15 +14,15 @@ jobs:
     - name: Checkout del código fuente
       uses: actions/checkout@v2
 
-    - name: Configurar Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16.17.0'
+    # - name: Configurar Node.js
+    #   uses: actions/setup-node@v2
+    #   with:
+    #     node-version: '16.17.0'
 
-    - name: Instalar dependencias y construir
-      run: |
-        npm install --legacy-peer-deps
-        npm run build
+    # - name: Instalar dependencias y construir
+    #   run: |
+    #     npm install --legacy-peer-deps
+    #     npm run build
 
     - name: Login Docker Hub
       uses: docker/login-action@v2
@@ -36,6 +36,7 @@ jobs:
         context: .
         push: true
         tags:  gastonlc/angularapp:1.0.0-Actions
+        file: Dockerfile
 
   deploy:
     needs: build

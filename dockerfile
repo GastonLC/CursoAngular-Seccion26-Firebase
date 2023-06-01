@@ -1,4 +1,10 @@
+FROM node:16.17.0 AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+COPY . .
+RUN npm run build
+
 FROM nginx:latest
-WORKDIR /usr/share/nginx/html
-COPY /dist/goty /usr/share/nginx/html
+COPY --from=builder /app/dist/goty /usr/share/nginx/html
 EXPOSE 80
