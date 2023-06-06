@@ -40,11 +40,9 @@ jobs:
       run: |
         kubectl config set-cluster ModeloDevops-AKS-Reader --server=https://modelodevops-aks-dns-b137e13a.hcp.westeurope.azmk8s.io
         kubectl config set-context ModeloDevops-AKS-Reader --cluster=ModeloDevops-AKS-Reader --namespace=mi-goty-namespace
+        kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
         kubectl config set-credentials gaston --token=${{ secrets.KUBECTL_TOKEN }}
         kubectl config set-context ModeloDevops-AKS-Reader --user=gaston
         kubectl config use-context ModeloDevops-AKS-Reader
-        kubectl config set clusters.ModeloDevops-AKS-Reader.certificate-authority-data ${{ secrets.KUBECTL_CA }}
-        kubectl config get-contexts
-        kubectl config current-context
         kubectl delete secret goty-tls-secret -n mi-goty-namespace
         kubectl apply -k kustomize
