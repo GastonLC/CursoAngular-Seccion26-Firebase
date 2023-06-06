@@ -38,8 +38,8 @@ jobs:
 
     - name: Update Kubernetes Secrets
       run: |
-        sed -i 's|_goty_key_|${{ secrets.GOTY_TLS_KEY }}|g' kustomize/secret.yaml --debug
-        sed -i 's|_goty_crt_|${{ secrets.GOTY_TLS_CRT }}|g' kustomize/secret.yaml --debug  
+        sed -i 's|_goty_key_|${{ secrets.GOTY_TLS_KEY }}|g' kustomize/secrets.yaml --debug
+        sed -i 's|_goty_crt_|${{ secrets.GOTY_TLS_CRT }}|g' kustomize/secrets.yaml --debug  
 
     - name: Configurar Kubectl
       run: |
