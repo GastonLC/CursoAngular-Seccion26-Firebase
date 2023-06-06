@@ -49,6 +49,4 @@ jobs:
         kubectl config set-credentials gaston --token=${{ secrets.KUBECTL_TOKEN }}
         kubectl config set-context ModeloDevops-AKS-Reader --user=gaston
         kubectl config use-context ModeloDevops-AKS-Reader
-        kubectl delete pods goty-deploy-6596c7fcc7-kkvxn -n mi-goty-namespace
-        kubectl delete secret goty-tls-secret -n mi-goty-namespace
         kubectl apply -k kustomize
