@@ -13,7 +13,7 @@ spec:
     - gaston.modelodevops.sociuschile.cl
     secretName: goty-tls-secret # nombre del secreto que contiene los certificados TLS/SSL
   rules:
-  - host: gaston2.modelodevops.sociuschile.cl
+  - host: gaston.modelodevops.sociuschile.cl
     http:
       paths:
       - path: /
